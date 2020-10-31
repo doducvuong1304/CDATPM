@@ -5,6 +5,7 @@
  */
 package Views;
 
+import static Controller.DeleteMessage.ghiDeFile;
 import Controller.HideMessage;
 import Controller.MessageRecovery;
 import java.io.IOException;
@@ -188,7 +189,27 @@ public class MessageRecoveryView extends javax.swing.JFrame {
 
     private void jButton_deleteTheMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteTheMessageActionPerformed
         // TODO add your handling code here:
-        String linkOfFile = jTextField_linkOfFile.getText();
+        String linkOfFile = this.jTextField_linkOfFile.getText();
+        Path path = Paths.get(linkOfFile);
+        this.jLabel_linkOfFileError.setVisible(checkText(linkOfFile));
+        
+        if (this.jLabel_linkOfFileError.isVisible()){
+            System.out.println("chưa nhập đường dẫn file!");
+        }
+        else{
+            System.out.println("đủ điều kiện để thực thi!");
+            if (Files.exists(path)){
+                try {
+                    ghiDeFile(path);
+                    JOptionPane.showMessageDialog(null, "Delete message successfully","SUCCESS" , JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    Logger.getLogger(HideMessageView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist!","ERROR" , JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
         
     }//GEN-LAST:event_jButton_deleteTheMessageActionPerformed
 
