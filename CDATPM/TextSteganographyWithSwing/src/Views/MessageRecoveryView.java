@@ -9,12 +9,12 @@ package Views;
  *
  * @author kingb
  */
-public class MessageRecovery extends javax.swing.JFrame {
+public class MessageRecoveryView extends javax.swing.JFrame {
 
     /**
      * Creates new form MessageRecovery
      */
-    public MessageRecovery() {
+    public MessageRecoveryView() {
         initComponents();
         setTitle("Message Recovery");
         setLocationRelativeTo(null);
@@ -30,23 +30,15 @@ public class MessageRecovery extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton_mainMenu = new javax.swing.JButton();
         jLabel_enterTheLink = new javax.swing.JLabel();
         jTextField_linkOfFile = new javax.swing.JTextField();
         jButton_viewTheMessage = new javax.swing.JButton();
         jButton_deleteTheMessage = new javax.swing.JButton();
+        jButton_mainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 500));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-
-        jButton_mainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.jpg"))); // NOI18N
-        jButton_mainMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_mainMenuActionPerformed(evt);
-            }
-        });
 
         jLabel_enterTheLink.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_enterTheLink.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/enter the link.jpg"))); // NOI18N
@@ -57,26 +49,31 @@ public class MessageRecovery extends javax.swing.JFrame {
 
         jButton_deleteTheMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/delete the message.jpg"))); // NOI18N
 
+        jButton_mainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.jpg"))); // NOI18N
+        jButton_mainMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_mainMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel_enterTheLink, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(438, Short.MAX_VALUE)
-                        .addComponent(jButton_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
-                        .addComponent(jButton_viewTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(jButton_deleteTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(438, Short.MAX_VALUE)
+                .addComponent(jButton_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jTextField_linkOfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(jButton_viewTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64)
+                .addComponent(jButton_deleteTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,11 +83,11 @@ public class MessageRecovery extends javax.swing.JFrame {
                 .addComponent(jLabel_enterTheLink)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_linkOfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_viewTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_deleteTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addComponent(jButton_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

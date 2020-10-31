@@ -33,8 +33,8 @@ public class MainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel_brain = new javax.swing.JLabel();
         jLabel_logo = new javax.swing.JLabel();
+        jLabel_brain = new javax.swing.JLabel();
         jLabel_pointHideMessage = new javax.swing.JLabel();
         jButton_hideMessage = new javax.swing.JButton();
         jLabel_pointMessageRecovery = new javax.swing.JLabel();
@@ -45,16 +45,15 @@ public class MainView extends javax.swing.JFrame {
         setBackground(new java.awt.Color(0, 51, 51));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(0, 0, 0));
-        setPreferredSize(new java.awt.Dimension(700, 500));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        jLabel_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logo.jpg"))); // NOI18N
 
         jLabel_brain.setBackground(new java.awt.Color(0, 0, 0));
         jLabel_brain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_brain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/brain.gif"))); // NOI18N
-
-        jLabel_logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/logo.jpg"))); // NOI18N
 
         jLabel_pointHideMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/point.jpg"))); // NOI18N
 
@@ -135,14 +134,14 @@ public class MainView extends javax.swing.JFrame {
 
     private void jButton_hideMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_hideMessageActionPerformed
         // TODO add your handling code here:
-        HideMessage hideMessage = new HideMessage();
+        HideMessageView hideMessage = new HideMessageView();
         hideMessage.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton_hideMessageActionPerformed
 
     private void jButton_messageRecoveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_messageRecoveryActionPerformed
         // TODO add your handling code here:
-        MessageRecovery messageRecovery = new MessageRecovery();
+        MessageRecoveryView messageRecovery = new MessageRecoveryView();
         messageRecovery.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton_messageRecoveryActionPerformed
