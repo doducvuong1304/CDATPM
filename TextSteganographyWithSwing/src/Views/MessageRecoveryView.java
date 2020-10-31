@@ -5,6 +5,16 @@
  */
 package Views;
 
+import Controller.HideMessage;
+import Controller.MessageRecovery;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kingb
@@ -32,11 +42,17 @@ public class MessageRecoveryView extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel_enterTheLink = new javax.swing.JLabel();
         jTextField_linkOfFile = new javax.swing.JTextField();
+        jLabel_linkOfFileError = new javax.swing.JLabel();
         jButton_viewTheMessage = new javax.swing.JButton();
         jButton_deleteTheMessage = new javax.swing.JButton();
         jButton_mainMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -45,9 +61,23 @@ public class MessageRecoveryView extends javax.swing.JFrame {
 
         jTextField_linkOfFile.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
 
+        jLabel_linkOfFileError.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel_linkOfFileError.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel_linkOfFileError.setText("Please enter the link of file you want to recover the message!");
+
         jButton_viewTheMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/view the message.jpg"))); // NOI18N
+        jButton_viewTheMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_viewTheMessageActionPerformed(evt);
+            }
+        });
 
         jButton_deleteTheMessage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/delete the message.jpg"))); // NOI18N
+        jButton_deleteTheMessage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_deleteTheMessageActionPerformed(evt);
+            }
+        });
 
         jButton_mainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/home.jpg"))); // NOI18N
         jButton_mainMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -65,15 +95,17 @@ public class MessageRecoveryView extends javax.swing.JFrame {
                 .addContainerGap(438, Short.MAX_VALUE)
                 .addComponent(jButton_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jTextField_linkOfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addComponent(jButton_viewTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64)
                 .addComponent(jButton_deleteTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel_linkOfFileError)
+                    .addComponent(jTextField_linkOfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,11 +115,13 @@ public class MessageRecoveryView extends javax.swing.JFrame {
                 .addComponent(jLabel_enterTheLink)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField_linkOfFile, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel_linkOfFileError)
+                .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_viewTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton_deleteTheMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addComponent(jButton_mainMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -112,6 +146,51 @@ public class MessageRecoveryView extends javax.swing.JFrame {
         mainView.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton_mainMenuActionPerformed
+
+    boolean checkText(String text){ // check xem Text co rong hay ko? neu rong tra ve true, nguoc lai tra ve false
+        if(text.equals("") || text == null || text.trim().equals("")){
+           return true;
+       }
+    return false;
+    }
+    
+    private void jButton_viewTheMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_viewTheMessageActionPerformed
+        // TODO add your handling code here:
+        String linkOfFile = this.jTextField_linkOfFile.getText();
+        Path path = Paths.get(linkOfFile);
+        this.jLabel_linkOfFileError.setVisible(checkText(linkOfFile));
+        
+        if (this.jLabel_linkOfFileError.isVisible()){
+            System.out.println("chưa nhập đường dẫn file!");
+        }
+        else{
+            System.out.println("đủ điều kiện để thực thi!");
+            if (Files.exists(path)){
+                try {
+                    String tinGiau = MessageRecovery.khoiPhuc(Paths.get(linkOfFile));
+                    
+                    System.out.println("Tin bi giau la: " + tinGiau);
+                    JOptionPane.showMessageDialog(null, tinGiau,"HIDDEN MESSAGE:" , JOptionPane.INFORMATION_MESSAGE);
+                } catch (IOException ex) {
+                    Logger.getLogger(HideMessageView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "File does not exist!","ERROR" , JOptionPane.ERROR_MESSAGE);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton_viewTheMessageActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        jLabel_linkOfFileError.setVisible(false);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton_deleteTheMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteTheMessageActionPerformed
+        // TODO add your handling code here:
+        String linkOfFile = jTextField_linkOfFile.getText();
+        
+    }//GEN-LAST:event_jButton_deleteTheMessageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,7 +232,12 @@ public class MessageRecoveryView extends javax.swing.JFrame {
     private javax.swing.JButton jButton_mainMenu;
     private javax.swing.JButton jButton_viewTheMessage;
     private javax.swing.JLabel jLabel_enterTheLink;
+    private javax.swing.JLabel jLabel_linkOfFileError;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField_linkOfFile;
     // End of variables declaration//GEN-END:variables
+
+    private Object File(String linkOfFile) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
