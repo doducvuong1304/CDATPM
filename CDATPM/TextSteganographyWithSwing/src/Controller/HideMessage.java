@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Hide Message Class
 package Controller;
 
 import java.io.File;
@@ -12,13 +8,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class HideMessage {
     
     // chuyen doan van ban (String) sang dang nhi phan (String)
-    public static String chuyenThanhNhiPhan(String vanBan) {
+    public static String stringToBinary(String vanBan) {
         byte[] bytes = vanBan.getBytes(); // tao mang byte
         StringBuilder binary = new StringBuilder(); // tao StringBuilder
         for (byte b : bytes) {
@@ -27,15 +23,13 @@ public class HideMessage {
                 binary.append((val & 128) == 0 ? 0 : 1); // so sanh bit cua val va bit cua 128, chi tra ve 1 hoac 0
                 val <<= 1;
             }
-//            System.out.println(val);
-            //binary.append(' '); // cach ra moi ki tu duoc chuyen thanh nhi phan
         }
         return binary.toString(); // tra ve chuoi nhi phan
     }
 
 
     // chuyen chuoi nhi phan thanh chuoi ky tu space va tab
-    public static String chuyenThanhKhoangTrang(String chuoiNhiPhan) {
+    public static String binaryToSpace(String chuoiNhiPhan) {
         // khoi tao cac ky tu
         String Tab = "\t";
         String Space = " ";
@@ -55,15 +49,15 @@ public class HideMessage {
 
 
     // ma hoa van ban de giau tin
-    public static String maHoa(String vanBan) {
-        String nhiPhan = chuyenThanhNhiPhan(vanBan);
-        String khoangTrang = chuyenThanhKhoangTrang(nhiPhan);
+    public static String encodeString(String vanBan) {
+        String nhiPhan = stringToBinary(vanBan);
+        String khoangTrang = binaryToSpace(nhiPhan);
         return khoangTrang;
     }
     
     // ham ghi file
     // ghi them noi dung, khong ghi de len noi dung da co
-    public static void ghiFile(Path duongDan, String noiDung) throws IOException {
+    public static void writeContentToFile(Path duongDan, String noiDung) throws IOException {
         File file = new File(String.valueOf(duongDan));
         boolean newFile = file.createNewFile(); // tao file moi
         if (newFile) { // neu file chua ton tai
@@ -76,11 +70,10 @@ public class HideMessage {
     }
     
     // tinh nang giau tin
-    public static void giauTin(String tinGiau, Path duongDan) throws IOException {
-        String tinGiauKhoangTrang = maHoa(tinGiau); // ma hoa tin giau
-        ghiFile(duongDan, tinGiauKhoangTrang); // giau tin vao file cover-text
-
-        System.out.println("Log: Giau tin thanh cong!!");
+    public static void hideMessage(String tinGiau, Path duongDan) throws IOException {
+        String tinGiauKhoangTrang = encodeString(tinGiau); // ma hoa tin giau
+        writeContentToFile(duongDan, tinGiauKhoangTrang); // giau tin vao file cover-text
+        System.out.println("Giấu tin thành công!");
     }
     
 }

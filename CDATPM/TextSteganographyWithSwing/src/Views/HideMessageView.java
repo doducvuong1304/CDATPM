@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Hide Message View
 package Views;
 
 import Controller.HideMessage;
@@ -14,9 +10,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class HideMessageView extends javax.swing.JFrame {
 
     /**
@@ -25,7 +21,7 @@ public class HideMessageView extends javax.swing.JFrame {
     public HideMessageView() {
         initComponents();
         setTitle("Hide Message");
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // can giua man hinh
     }
 
     /**
@@ -164,35 +160,42 @@ public class HideMessageView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // set event button Main Menu
     private void jButton_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mainMenuActionPerformed
         // TODO add your handling code here:
         MainView mainView = new MainView();
-        mainView.setVisible(true);
-        this.dispose();
+        mainView.setVisible(true); // show Main View
+        this.dispose(); // an Hide Message View
     }//GEN-LAST:event_jButton_mainMenuActionPerformed
 
-    boolean checkText(String text){ // check xem Text co rong hay ko? neu rong tra ve true, nguoc lai tra ve false
+    // check xem Text co rong hay ko? neu rong tra ve true, nguoc lai tra ve false
+    boolean checkTextEmpty(String text){ 
         if(text.equals("") || text == null || text.trim().equals("")){
            return true;
        }
     return false;
     }
     
+    // set event button Hide Message
     private void jButton_okHideMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_okHideMessageActionPerformed
         // TODO add your handling code here:
+        // get Text
         String linkOfFile = this.jTextField_linkOfFile.getText();
         String message = this.jTextArea_message.getText();
         
-        this.jLabel_linkOfFileError.setVisible(checkText(linkOfFile));
-        this.jLabel_messageError.setVisible(checkText(message));
+        // set event error lable
+        this.jLabel_linkOfFileError.setVisible(checkTextEmpty(linkOfFile));
+        this.jLabel_messageError.setVisible(checkTextEmpty(message));
         
+        // check xem du dieu kien thuc thi hay ko
         if (this.jLabel_linkOfFileError.isVisible() || this.jLabel_messageError.isVisible()){
             System.out.println("chưa nhập đủ!");
         }
         else{
             System.out.println("đủ điều kiện để thực thi!");
+            // thuc thi giau tin
             try {
-                HideMessage.giauTin(message, Paths.get(linkOfFile));
+                HideMessage.hideMessage(message, Paths.get(linkOfFile));
                 JOptionPane.showMessageDialog(null, "Hide the Message successfully!","SUCCESS!" , JOptionPane.INFORMATION_MESSAGE);
             } catch (IOException ex) {
                 Logger.getLogger(HideMessageView.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,8 +204,10 @@ public class HideMessageView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_okHideMessageActionPerformed
 
+    // set event khi run Hide Message View
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        // an error lable
         jLabel_linkOfFileError.setVisible(false);
         jLabel_messageError.setVisible(false);
     }//GEN-LAST:event_formWindowOpened

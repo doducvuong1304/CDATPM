@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Message Reocovery Class
 package Controller;
 
 import java.io.IOException;
@@ -11,12 +7,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class MessageRecovery {
     
-    public static String chuyenKhoangTrangThanhChuoiNhiPhan(String content) {
+    // chuyen khoang trang thanh chuoi nhi phan
+    public static String spaceToBinary(String content) {
         StringBuilder binarySecretContent = new StringBuilder();
         for (int i = 0; i < content.length(); i++) {
             char c = content.charAt(i);
@@ -25,13 +22,14 @@ public class MessageRecovery {
         return binarySecretContent.toString();
     }
 
-    public static String layThongDiepAnTrongFile(Path path) throws IOException {
+    // lay thong diep da giau trong file
+    public static String getMessageInFile(Path path) throws IOException {
         StringBuilder thongDiep = new StringBuilder();
         if (Files.exists(path)) {
             String noiDungFile = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
             String[] contentArr = noiDungFile.split("\\S");
             String khoangTrang = contentArr[contentArr.length - 1];
-            String chuoiBinary = chuyenKhoangTrangThanhChuoiNhiPhan(khoangTrang);
+            String chuoiBinary = spaceToBinary(khoangTrang);
 
             String[] split = chuoiBinary.split("(?<=\\G.{8})");
             for (String s : split) {
@@ -41,8 +39,9 @@ public class MessageRecovery {
         return thongDiep.toString();
     }
     
-    public static String khoiPhuc(Path duongDan) throws IOException {
-		return layThongDiepAnTrongFile(duongDan);
+    // khoi phuc tin da giau
+    public static String recoveryMessage(Path duongDan) throws IOException {
+	return getMessageInFile(duongDan);
     }
     
 }

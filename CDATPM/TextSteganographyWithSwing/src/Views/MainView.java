@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Main View
 package Views;
 
 import java.awt.Color;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class MainView extends javax.swing.JFrame {
 
     /**
@@ -20,7 +16,7 @@ public class MainView extends javax.swing.JFrame {
         initComponents();
         setTitle("TEXT STEGANOGRAPHY");
         setBackground(Color.BLACK);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // can giua man hinh
     }
 
     /**
@@ -132,18 +128,20 @@ public class MainView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // set event button giau tin
     private void jButton_hideMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_hideMessageActionPerformed
         // TODO add your handling code here:
         HideMessageView hideMessage = new HideMessageView();
-        hideMessage.setVisible(true);
-        this.dispose();
+        hideMessage.setVisible(true); // show Hide Message View
+        this.dispose(); // an Main View
     }//GEN-LAST:event_jButton_hideMessageActionPerformed
 
+    // set event button khoi phuc tin giau
     private void jButton_messageRecoveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_messageRecoveryActionPerformed
         // TODO add your handling code here:
         MessageRecoveryView messageRecovery = new MessageRecoveryView();
-        messageRecovery.setVisible(true);
-        this.dispose();
+        messageRecovery.setVisible(true); // show Message Recovery View
+        this.dispose(); // an Main View
     }//GEN-LAST:event_jButton_messageRecoveryActionPerformed
 
     /**

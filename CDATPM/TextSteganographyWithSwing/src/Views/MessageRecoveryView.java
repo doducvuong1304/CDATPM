@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Message Recovery View
 package Views;
 
-import static Controller.DeleteMessage.ghiDeFile;
+import Controller.DeleteMessage;
+import static Controller.DeleteMessage.deleteMessage;
 import Controller.HideMessage;
 import Controller.MessageRecovery;
 import java.io.IOException;
@@ -17,9 +14,9 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class MessageRecoveryView extends javax.swing.JFrame {
 
     /**
@@ -28,7 +25,7 @@ public class MessageRecoveryView extends javax.swing.JFrame {
     public MessageRecoveryView() {
         initComponents();
         setTitle("Message Recovery");
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // can giua man hinh
     }
 
     /**
@@ -141,40 +138,51 @@ public class MessageRecoveryView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // set event button Main Menu
     private void jButton_mainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_mainMenuActionPerformed
         // TODO add your handling code here:
         MainView mainView = new MainView();
-        mainView.setVisible(true);
-        this.dispose();
+        mainView.setVisible(true); // show Main View
+        this.dispose(); // an Message Recovery View
     }//GEN-LAST:event_jButton_mainMenuActionPerformed
 
-    boolean checkText(String text){ // check xem Text co rong hay ko? neu rong tra ve true, nguoc lai tra ve false
+    // check xem Text co rong hay ko? neu rong tra ve true, nguoc lai tra ve false
+    boolean checkTextEmpty(String text){ 
         if(text.equals("") || text == null || text.trim().equals("")){
            return true;
        }
     return false;
     }
     
+    // set event Button View Message
     private void jButton_viewTheMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_viewTheMessageActionPerformed
         // TODO add your handling code here:
+        // get Text
         String linkOfFile = this.jTextField_linkOfFile.getText();
         Path path = Paths.get(linkOfFile);
-        this.jLabel_linkOfFileError.setVisible(checkText(linkOfFile));
         
+        // set event error lable
+        this.jLabel_linkOfFileError.setVisible(checkTextEmpty(linkOfFile));
+        
+        // check dieu kien de thuc thi khoi phuc tin giau
         if (this.jLabel_linkOfFileError.isVisible()){
             System.out.println("chưa nhập đường dẫn file!");
         }
         else{
             System.out.println("đủ điều kiện để thực thi!");
+            // neu file ton tai
             if (Files.exists(path)){
+                // hien thi tin giau
                 try {
-                    String tinGiau = MessageRecovery.khoiPhuc(Paths.get(linkOfFile));
+                    String tinGiau = MessageRecovery.recoveryMessage(Paths.get(linkOfFile));
                     
                     System.out.println("Tin bi giau la: " + tinGiau);
+                    // hien thi dialog cho xem tin giau
                     JOptionPane.showMessageDialog(null, tinGiau,"HIDDEN MESSAGE:" , JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(HideMessageView.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                // neu file ko ton tai
             } else {
                 JOptionPane.showMessageDialog(null, "File does not exist!","ERROR" , JOptionPane.ERROR_MESSAGE);
             }
@@ -182,29 +190,40 @@ public class MessageRecoveryView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton_viewTheMessageActionPerformed
 
+    // set event khi run Message Rocovery View
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
+        // an error lable
         jLabel_linkOfFileError.setVisible(false);
     }//GEN-LAST:event_formWindowOpened
 
+    // set event button Delete Message
     private void jButton_deleteTheMessageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_deleteTheMessageActionPerformed
         // TODO add your handling code here:
+        // get Text
         String linkOfFile = this.jTextField_linkOfFile.getText();
         Path path = Paths.get(linkOfFile);
-        this.jLabel_linkOfFileError.setVisible(checkText(linkOfFile));
         
+        // set event error lable
+        this.jLabel_linkOfFileError.setVisible(checkTextEmpty(linkOfFile));
+        
+        // check dieu kien de thuc thi
         if (this.jLabel_linkOfFileError.isVisible()){
             System.out.println("chưa nhập đường dẫn file!");
         }
         else{
             System.out.println("đủ điều kiện để thực thi!");
+            // neu file ton tai
             if (Files.exists(path)){
+                // xoa tin da giau
                 try {
-                    ghiDeFile(path);
-                    JOptionPane.showMessageDialog(null, "Delete message successfully","SUCCESS" , JOptionPane.INFORMATION_MESSAGE);
+                    DeleteMessage.deleteMessage(path);
+                    // hien thi dialog thong bao xoa tin giau thanh cong
+                    JOptionPane.showMessageDialog(null, "Delete message successfully!","SUCCESS" , JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     Logger.getLogger(HideMessageView.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                // neu file ko ton tai
             } else {
                 JOptionPane.showMessageDialog(null, "File does not exist!","ERROR" , JOptionPane.ERROR_MESSAGE);
             }

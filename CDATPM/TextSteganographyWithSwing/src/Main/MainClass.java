@@ -1,16 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Main Class
 package Main;
 
 import Views.MainView;
 
 /**
- *
- * @author kingb
+ * @author Do Duc Vuong - N16DCAT063
  */
+
 public class MainClass {
     
     public static void main(String args[]) {
@@ -40,7 +36,7 @@ public class MainClass {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainView().setVisible(true);
+                new MainView().setVisible(true); // show Main View
             }
         });
     }
